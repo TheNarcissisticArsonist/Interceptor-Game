@@ -5,10 +5,28 @@
 
 
 //----------------------------------------------------------------------------------------------------
-// Variables
+// Non-Javascript Constants
 //----------------------------------------------------------------------------------------------------
 
+var userInterface = "<div id='gameScreen'>				\
+	<div id='svgCont'>									\
+		<svg id='gameArea'></svg>						\
+	</div>												\
+	<div id='uiBottomLeft'>								\
+		<div id='dummyControl1'></div>					\
+		<div id='dummyInfo1'></div>						\
+	</div>												\
+	<div id='uiBottomRight'>							\
+		<div id='dummyControl2'></div>					\
+		<div id='dummyInfo2'></div>						\
+	</div>												\
+	</div>";
 
+//----------------------------------------------------------------------------------------------------
+// Global Variables
+//----------------------------------------------------------------------------------------------------
+
+htmlElements = {};
 
 //----------------------------------------------------------------------------------------------------
 // Classes
@@ -17,11 +35,25 @@
 
 
 //----------------------------------------------------------------------------------------------------
+// Display and Formatting Functions
+//----------------------------------------------------------------------------------------------------
+
+function clearPage() {
+	removeElementById("pageLoadText");
+	document.body.innerHTML += "<div id='wholeScreen'></div>";
+	htmlElements.wholeScreen = document.getElementById("wholeScreen");
+}
+function loadUI() {
+	htmlElements.wholeScreen.innerHTML = userInterface;
+}
+
+//----------------------------------------------------------------------------------------------------
 // Game Functions
 //----------------------------------------------------------------------------------------------------
 
 function pageLoad() {
-	removeElementById("pageLoadText");
+	clearPage();
+	loadUI();
 }
 
 //----------------------------------------------------------------------------------------------------
