@@ -5,7 +5,7 @@
 var uiWidthFractionLeft = 8; //The fraction of the total screen width for the left UI element
 var uiWidthFractionRight = 8; //Same, but for the right
 var uiHeightFraction = 5; //The height fraction for both UI elements
-var uiBoostBarHeight = "20px";
+var uiBoostBarCompletelyDischargedWidth = "5px";
 
 //----------------------------------------------------------------------------------------------------
 // Non-Javascript Constants
@@ -16,31 +16,39 @@ var userInterface = "<div id='gameScreen'>\
 		<svg id='gameArea' width='0px' height='0px'></svg>\
 	</div>\
 	<div id='uiBottomLeft'>\
-		<div id='speedInfoCont'>Speed: <span id='speedInfo'>___</span> km/h</div>\
-		<br>\
-		<div id='boostBarInfoCont'>Boost: <div id='boostBar'></div></div>\
-	</div>\
-	<div id='uiBottomRight'>\
-		<div id='shieldsInfoCont'>Shields:\
-			<div class='shieldInfo'></div>\
-			<div class='shieldInfo'></div>\
-			<div class='shieldInfo'></div>\
-			<div class='shieldInfo'></div>\
-			<div class='shieldInfo'></div>\
-			<div class='shieldInfo'></div>\
-			<div class='shieldInfo'></div>\
-			<div class='shieldInfo'></div>\
+		<div id='speedInfoCenteringCont'>\
+			<div id='speedInfoCont'>Speed: <span id='speedInfo'>___</span> km/h</div>\
 		</div>\
 		<br>\
-		<div id='healthInfoCont'>Health:\
-			<div class='healthInfo'></div>\
-			<div class='healthInfo'></div>\
-			<div class='healthInfo'></div>\
-			<div class='healthInfo'></div>\
-			<div class='healthInfo'></div>\
-			<div class='healthInfo'></div>\
-			<div class='healthInfo'></div>\
-			<div class='healthInfo'></div>\
+		<div id='boostBarInfoCenteringCont'>\
+			<div id='boostBarInfoCont'>Boost: <div id='boostBar'></div></div>\
+		</div>\
+	</div>\
+	<div id='uiBottomRight'>\
+		<div id='shieldsInfoCenteringCont'>\
+			<div id='shieldsInfoCont'>Shields:\
+				<div class='shieldInfo'></div>\
+				<div class='shieldInfo'></div>\
+				<div class='shieldInfo'></div>\
+				<div class='shieldInfo'></div>\
+				<div class='shieldInfo'></div>\
+				<div class='shieldInfo'></div>\
+				<div class='shieldInfo'></div>\
+				<div class='shieldInfo'></div>\
+			</div>\
+		</div>\
+		<br>\
+		<div id='healthInfoCenteringCont'>\
+			<div id='healthInfoCont'>Health:\
+				<div class='healthInfo'></div>\
+				<div class='healthInfo'></div>\
+				<div class='healthInfo'></div>\
+				<div class='healthInfo'></div>\
+				<div class='healthInfo'></div>\
+				<div class='healthInfo'></div>\
+				<div class='healthInfo'></div>\
+				<div class='healthInfo'></div>\
+			</div>\
 		</div>\
 	</div>\
 	</div>";
@@ -82,17 +90,21 @@ function loadUI() {
 	var uiBottomLeft = document.getElementById("uiBottomLeft");
 	var uiBottomRight = document.getElementById("uiBottomRight");
 	var uiSpeedInfoCont = document.getElementById("speedInfoCont");
+	var uiSpeedInfoCenteringCont = document.getElementById("speedInfoCenteringCont");
 	var uiBoostBarInfoCont = document.getElementById("boostBarInfoCont");
+	var uiBoostBarInfoCenteringCont = document.getElementById("boostBarInfoCenteringCont");
 	var uiBoostBar = document.getElementById("boostBar");
 	var uiShieldsInfoCont = document.getElementById("shieldsInfoCont");
+	var uiShieldsInfoCenteringCont = document.getElementById("shieldsInfoCenteringCont");
 	var uiShieldArray = document.getElementsByClassName("shieldInfo");
 	var uiHealthInfoCont = document.getElementById("healthInfoCont");
+	var uiHealthInfoCenteringCont = document.getElementById("healthInfoCenteringCont");
 	var uiHealthArray = document.getElementsByClassName("healthInfo");
 
 	//Game screen and container formatting
 	gameScreen.style.width = "100%";
 	gameScreen.style.height = "100%";
-	gameScreen.style.backgroundColor = "#87cefa"; //Sky blue
+	gameScreen.style.backgroundColor = "#a7eeff"; //Sky blue
 
 	//SVG area formatting
 
@@ -109,6 +121,23 @@ function loadUI() {
 	uiBottomLeft.style.width = String(fractionWindowWidth(uiWidthFractionLeft)) + "px";
 	uiBottomLeft.style.height = String(fractionWindowHeight(uiHeightFraction)) + "px";
 	uiBottomLeft.style.textAlign = "center";
+	uiSpeedInfoCenteringCont.style.display = "table";
+	uiSpeedInfoCenteringCont.style.width = "100%";
+	uiSpeedInfoCenteringCont.style.height = "50%";
+	uiSpeedInfoCont.style.display = "table-cell";
+	uiSpeedInfoCont.style.textAlign = "center";
+	uiSpeedInfoCont.style.verticalAlign = "middle";
+	uiBoostBarInfoCenteringCont.style.display = "table";
+	uiBoostBarInfoCenteringCont.style.width = "100%";
+	uiBoostBarInfoCenteringCont.style.height = "50%";
+	uiBoostBarInfoCont.style.display = "table-cell";
+	uiBoostBarInfoCont.style.textAlign = "center";
+	uiBoostBarInfoCont.style.verticalAlign = "middle";
+	uiBoostBar.style.width = uiBoostBarCompletelyDischargedWidth;
+	uiBoostBar.style.backgroundColor = "#5aafe4"; //Slightly darker than sky blue
+	uiBoostBar.innerHTML = "&nbsp;";
+
+	/*//Bottom left UI formatting
 	uiSpeedInfoCont.style.height = String(Number(window.getComputedStyle(uiBottomLeft, null).getPropertyValue("height").slice(0, -2))*0.4) + "px";
 	uiBoostBarInfoCont.style.height = String(Number(window.getComputedStyle(uiBottomLeft, null).getPropertyValue("height").slice(0, -2))*0.4) + "px";
 	uiBoostBar.style.height = uiBoostBarHeight;
@@ -123,7 +152,7 @@ function loadUI() {
 	uiBottomRight.style.height = String(fractionWindowHeight(uiHeightFraction)) + "px";
 	uiBottomRight.style.textAlign = "center";
 	uiShieldsInfoCont.style.height = String(Number(window.getComputedStyle(uiBottomRight, null).getPropertyValue("height").slice(0, -2))*0.4) + "px";
-	uiHealthInfoCont.style.height = String(Number(window.getComputedStyle(uiBottomRight, null).getPropertyValue("height").slice(0, -2))*0.4) + "px";
+	uiHealthInfoCont.style.height = String(Number(window.getComputedStyle(uiBottomRight, null).getPropertyValue("height").slice(0, -2))*0.4) + "px";*/
 }
 
 //----------------------------------------------------------------------------------------------------
