@@ -6,3 +6,6 @@ div {
 body {
 	margin: 0px;
 }
+svg {
+	display: inline;
+}
