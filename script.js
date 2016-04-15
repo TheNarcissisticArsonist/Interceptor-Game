@@ -2,7 +2,10 @@
 // Constants
 //----------------------------------------------------------------------------------------------------
 
-
+var uiWidthFractionLeft = 8; //The fraction of the total screen width for the left UI element
+var uiWidthFractionRight = 8; //Same, but for the right
+var uiHeightFraction = 5; //The height fraction for both UI elements
+var uiBoostBarHeight = "20px";
 
 //----------------------------------------------------------------------------------------------------
 // Non-Javascript Constants
@@ -103,12 +106,24 @@ function loadUI() {
 	uiBottomLeft.style.position = "fixed";
 	uiBottomLeft.style.bottom = "0px";
 	uiBottomLeft.style.left = "0px";
-	uiBottomLeft.style.width = String(fractionWindowWidth(8))+"px";
+	uiBottomLeft.style.width = String(fractionWindowWidth(uiWidthFractionLeft)) + "px";
+	uiBottomLeft.style.height = String(fractionWindowHeight(uiHeightFraction)) + "px";
+	uiBottomLeft.style.textAlign = "center";
+	uiSpeedInfoCont.style.height = String(Number(window.getComputedStyle(uiBottomLeft, null).getPropertyValue("height").slice(0, -2))*0.4) + "px";
+	uiBoostBarInfoCont.style.height = String(Number(window.getComputedStyle(uiBottomLeft, null).getPropertyValue("height").slice(0, -2))*0.4) + "px";
+	uiBoostBar.style.height = uiBoostBarHeight;
+	uiBoostBar.style.width = "5px";
+	uiBoostBar.style.backgroundColor = "#5aafe4"; //Slightly darker than sky blue
 
 	//Bottom right UI formatting
 	uiBottomRight.style.position = "fixed";
 	uiBottomRight.style.bottom = "0px";
 	uiBottomRight.style.right = "0px";
+	uiBottomRight.style.width = String(fractionWindowWidth(uiWidthFractionRight))+"px";
+	uiBottomRight.style.height = String(fractionWindowHeight(uiHeightFraction)) + "px";
+	uiBottomRight.style.textAlign = "center";
+	uiShieldsInfoCont.style.height = String(Number(window.getComputedStyle(uiBottomRight, null).getPropertyValue("height").slice(0, -2))*0.4) + "px";
+	uiHealthInfoCont.style.height = String(Number(window.getComputedStyle(uiBottomRight, null).getPropertyValue("height").slice(0, -2))*0.4) + "px";
 }
 
 //----------------------------------------------------------------------------------------------------
