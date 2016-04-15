@@ -121,30 +121,23 @@ function loadUI() {
 	uiBottomLeft.style.width = String(fractionWindowWidth(uiWidthFractionLeft)) + "px";
 	uiBottomLeft.style.height = String(fractionWindowHeight(uiHeightFraction)) + "px";
 	uiBottomLeft.style.textAlign = "center";
-	uiSpeedInfoCenteringCont.style.display = "table";
 	uiSpeedInfoCenteringCont.style.width = "100%";
 	uiSpeedInfoCenteringCont.style.height = "50%";
-	uiSpeedInfoCont.style.display = "table-cell";
 	uiSpeedInfoCont.style.textAlign = "center";
-	uiSpeedInfoCont.style.verticalAlign = "middle";
-	uiBoostBarInfoCenteringCont.style.display = "table";
+	uiSpeedInfoCont.style.position = "relative";
+	uiSpeedInfoCont.style.top = "50%";
+	uiSpeedInfoCont.style.transform = "translateY(-50%)";
 	uiBoostBarInfoCenteringCont.style.width = "100%";
 	uiBoostBarInfoCenteringCont.style.height = "50%";
-	uiBoostBarInfoCont.style.display = "table-cell";
 	uiBoostBarInfoCont.style.textAlign = "center";
-	uiBoostBarInfoCont.style.verticalAlign = "middle";
+	uiBoostBarInfoCont.style.position = "relative";
+	uiBoostBarInfoCont.style.top = "50%";
+	uiBoostBarInfoCont.style.transform = "translateY(-50%)";
 	uiBoostBar.style.width = uiBoostBarCompletelyDischargedWidth;
 	uiBoostBar.style.backgroundColor = "#5aafe4"; //Slightly darker than sky blue
 	uiBoostBar.innerHTML = "&nbsp;";
 
-	/*//Bottom left UI formatting
-	uiSpeedInfoCont.style.height = String(Number(window.getComputedStyle(uiBottomLeft, null).getPropertyValue("height").slice(0, -2))*0.4) + "px";
-	uiBoostBarInfoCont.style.height = String(Number(window.getComputedStyle(uiBottomLeft, null).getPropertyValue("height").slice(0, -2))*0.4) + "px";
-	uiBoostBar.style.height = uiBoostBarHeight;
-	uiBoostBar.style.width = "5px";
-	uiBoostBar.style.backgroundColor = "#5aafe4"; //Slightly darker than sky blue
-
-	//Bottom right UI formatting
+	/*//Bottom right UI formatting
 	uiBottomRight.style.position = "fixed";
 	uiBottomRight.style.bottom = "0px";
 	uiBottomRight.style.right = "0px";
