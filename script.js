@@ -43,7 +43,7 @@ var userInterface = "<div id='gameScreen'>\
 		<br>\
 		<div id='healthInfoCenteringCont'>\
 			<div id='healthInfoCont'>\
-				<p>Health:</p>\
+				<p>&nbsp;Health:</p>\
 				<div class='healthInfo'></div>\
 				<div class='healthInfo'></div>\
 				<div class='healthInfo'></div>\
@@ -82,8 +82,10 @@ function clearPage() {
 	htmlElements.wholeScreen.style.height = "100vh";
 }
 function loadUI() {
-	htmlElements.wholeScreen.innerHTML = userInterface;
-	htmlElements.gameArea = document.getElementById("gameArea");
+	//This is basically a giant-ass function that puts in all the elements and loads all the css and such
+
+	htmlElements.wholeScreen.innerHTML = userInterface;	//Load the user interface into the webpage
+	htmlElements.gameArea = document.getElementById("gameArea"); //Grab the svg game area for use later
 
 	//Store ui info panels to htmlElements for access later
 	
@@ -111,10 +113,9 @@ function loadUI() {
 	gameScreen.style.backgroundColor = "#a7eeff"; //Sky blue
 
 	//SVG area formatting
-
 	svgArea.setAttribute("width", "100vw");
 	svgArea.setAttribute("height", "100vh");
-	svgArea.style.position = "fixed";
+	svgArea.style.position = "fixed"; //So it always stays centered across the whole screen
 	svgArea.style.left = "0px";
 	svgArea.style.top = "0px";
 
@@ -122,15 +123,15 @@ function loadUI() {
 	uiBottomLeft.style.position = "fixed";
 	uiBottomLeft.style.bottom = "0px";
 	uiBottomLeft.style.left = "0px";
-	uiBottomLeft.style.width = String(fractionWindowWidth(uiWidthFractionLeft)) + "px";
-	uiBottomLeft.style.height = String(fractionWindowHeight(uiHeightFraction)) + "px";
+	uiBottomLeft.style.width = String(fractionWindowWidth(uiWidthFractionLeft)) + "px"; //Set the width to the width of the whole window divided by some constant
+	uiBottomLeft.style.height = String(fractionWindowHeight(uiHeightFraction)) + "px"; //Same, except for the height
 	uiBottomLeft.style.textAlign = "center";
 	uiSpeedInfoCenteringCont.style.width = "100%";
-	uiSpeedInfoCenteringCont.style.height = "50%";
+	uiSpeedInfoCenteringCont.style.height = "50%"; //There are two in each one, so the height of each is 50%
 	uiSpeedInfoCont.style.textAlign = "center";
 	uiSpeedInfoCont.style.position = "relative";
-	uiSpeedInfoCont.style.top = "50%";
-	uiSpeedInfoCont.style.transform = "translateY(-50%)";
+	uiSpeedInfoCont.style.top = "50%";						//For some reason, this line and the line below vertically centers some stuff
+	uiSpeedInfoCont.style.transform = "translateY(-50%)";	//Oh well
 	uiBoostBarInfoCenteringCont.style.width = "100%";
 	uiBoostBarInfoCenteringCont.style.height = "50%";
 	uiBoostBarInfoCont.style.textAlign = "center";
@@ -162,8 +163,8 @@ function loadUI() {
 	uiHealthInfoCont.style.transform = "translateY(-50%)";
 	for(var i=0; i<uiShieldArray.length; ++i) {
 		uiShieldArray[i].style.border = "1px dotted black";
-		uiShieldArray[i].style.width = String(Number(window.getComputedStyle(uiShieldsInfoCenteringCont, null).getPropertyValue("width").slice(0, -2))/uiBarWidthFraction) + "px";
-		uiShieldArray[i].style.height = String(Number(uiShieldArray[i].style.width.slice(0, -2))*uiBarWidthToHeightRatio) + "px";
+		uiShieldArray[i].style.width = String(Number(window.getComputedStyle(uiShieldsInfoCenteringCont, null).getPropertyValue("width").slice(0, -2))/uiBarWidthFraction) + "px"; //Set the width of each ui shield bar to a fraction of the parent
+		uiShieldArray[i].style.height = String(Number(uiShieldArray[i].style.width.slice(0, -2))*uiBarWidthToHeightRatio) + "px"; //Set its height to a constant times its width
 	}
 	for(var i=0; i<uiHealthArray.length; ++i) {
 		uiHealthArray[i].style.border = "1px dotted black";
