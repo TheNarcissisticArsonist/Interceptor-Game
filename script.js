@@ -2,10 +2,12 @@
 // Constants
 //----------------------------------------------------------------------------------------------------
 
-var uiWidthFractionLeft = 8; //The fraction of the total screen width for the left UI element
-var uiWidthFractionRight = 8; //Same, but for the right
+var uiWidthFractionLeft = 5; //The fraction of the total screen width for the left UI element
+var uiWidthFractionRight = 5; //Same, but for the right
 var uiHeightFraction = 5; //The height fraction for both UI elements
-var uiBoostBarCompletelyDischargedWidth = "5px";
+var uiBoostBarCompletelyDischargedWidth = "5px"; //How wide the boost bar is at its absolute minimum (0% charge)
+var uiBarWidthFraction = 20; //The width of the shield and health bars relative to the width of the ui container
+var uiBarWidthToHeightRatio = 2; //The ratio between the width and height of the shield and health bars in the UI
 
 //----------------------------------------------------------------------------------------------------
 // Non-Javascript Constants
@@ -17,16 +19,17 @@ var userInterface = "<div id='gameScreen'>\
 	</div>\
 	<div id='uiBottomLeft'>\
 		<div id='speedInfoCenteringCont'>\
-			<div id='speedInfoCont'>Speed: <span id='speedInfo'>___</span> km/h</div>\
+			<div id='speedInfoCont'><p>Speed:&nbsp;</p><span id='speedInfo'>___</span><p> km/h</p></div>\
 		</div>\
 		<br>\
 		<div id='boostBarInfoCenteringCont'>\
-			<div id='boostBarInfoCont'>Boost: <div id='boostBar'></div></div>\
+			<div id='boostBarInfoCont'><p>Boost:&nbsp;</p><div id='boostBar'></div></div>\
 		</div>\
 	</div>\
 	<div id='uiBottomRight'>\
 		<div id='shieldsInfoCenteringCont'>\
-			<div id='shieldsInfoCont'>Shields:\
+			<div id='shieldsInfoCont'>\
+				<p>Shields:</p>\
 				<div class='shieldInfo'></div>\
 				<div class='shieldInfo'></div>\
 				<div class='shieldInfo'></div>\
@@ -39,7 +42,8 @@ var userInterface = "<div id='gameScreen'>\
 		</div>\
 		<br>\
 		<div id='healthInfoCenteringCont'>\
-			<div id='healthInfoCont'>Health:\
+			<div id='healthInfoCont'>\
+				<p>Health:</p>\
 				<div class='healthInfo'></div>\
 				<div class='healthInfo'></div>\
 				<div class='healthInfo'></div>\
@@ -156,16 +160,24 @@ function loadUI() {
 	uiHealthInfoCont.style.position = "relative";
 	uiHealthInfoCont.style.top = "50%";
 	uiHealthInfoCont.style.transform = "translateY(-50%)";
+	for(var i=0; i<uiShieldArray.length; ++i) {
+		uiShieldArray[i].style.border = "1px dotted black";
+		uiShieldArray[i].style.width = String(Number(window.getComputedStyle(uiShieldsInfoCenteringCont, null).getPropertyValue("width").slice(0, -2))/uiBarWidthFraction) + "px";
+		uiShieldArray[i].style.height = String(Number(uiShieldArray[i].style.width.slice(0, -2))*uiBarWidthToHeightRatio) + "px";
+	}
+	for(var i=0; i<uiHealthArray.length; ++i) {
+		uiHealthArray[i].style.border = "1px dotted black";
+		uiHealthArray[i].style.width = String(Number(window.getComputedStyle(uiHealthInfoCenteringCont, null).getPropertyValue("width").slice(0, -2))/uiBarWidthFraction) + "px";
+		uiHealthArray[i].style.height = String(Number(uiHealthArray[i].style.width.slice(0, -2))*uiBarWidthToHeightRatio) + "px";
+	}
 
-	/*//Bottom right UI formatting
-	uiBottomRight.style.position = "fixed";
-	uiBottomRight.style.bottom = "0px";
-	uiBottomRight.style.right = "0px";
-	uiBottomRight.style.width = String(fractionWindowWidth(uiWidthFractionRight))+"px";
-	uiBottomRight.style.height = String(fractionWindowHeight(uiHeightFraction)) + "px";
-	uiBottomRight.style.textAlign = "center";
-	uiShieldsInfoCont.style.height = String(Number(window.getComputedStyle(uiBottomRight, null).getPropertyValue("height").slice(0, -2))*0.4) + "px";
-	uiHealthInfoCont.style.height = String(Number(window.getComputedStyle(uiBottomRight, null).getPropertyValue("height").slice(0, -2))*0.4) + "px";*/
+	/*//Formatting for css debugging (comment this out when not being used)
+	uiBottomLeft.style.backgroundColor = "#ffeeee";
+	uiBottomRight.style.backgroundColor = "#ffeeee";
+	uiSpeedInfoCont.style.backgroundColor = "#ffdddd";
+	uiBoostBarInfoCont.style.backgroundColor = "#ffdddd";
+	uiShieldsInfoCont.style.backgroundColor = "#ffdddd";
+	uiHealthInfoCont.style.backgroundColor = "#ffdddd";*/
 }
 
 //----------------------------------------------------------------------------------------------------

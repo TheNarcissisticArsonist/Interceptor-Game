@@ -9,3 +9,6 @@ body {
 svg {
 	display: inline;
 }
+p {
+	display: inline-block;
+}
