@@ -137,6 +137,26 @@ function loadUI() {
 	uiBoostBar.style.backgroundColor = "#5aafe4"; //Slightly darker than sky blue
 	uiBoostBar.innerHTML = "&nbsp;";
 
+	//Bottom right UI formatting
+	uiBottomRight.style.position = "fixed";
+	uiBottomRight.style.bottom = "0px";
+	uiBottomRight.style.right = "0px";
+	uiBottomRight.style.width = String(fractionWindowWidth(uiWidthFractionRight)) + "px";
+	uiBottomRight.style.height = String(fractionWindowHeight(uiHeightFraction)) + "px";
+	uiBottomRight.style.textAlign = "center";
+	uiShieldsInfoCenteringCont.style.width = "100%";
+	uiShieldsInfoCenteringCont.style.height = "50%";
+	uiShieldsInfoCont.style.textAlign = "center";
+	uiShieldsInfoCont.style.position = "relative";
+	uiShieldsInfoCont.style.top = "50%";
+	uiShieldsInfoCont.style.transform = "translateY(-50%)";
+	uiHealthInfoCenteringCont.style.width = "100%";
+	uiHealthInfoCenteringCont.style.height = "50%";
+	uiHealthInfoCont.style.textAlign = "center";
+	uiHealthInfoCont.style.position = "relative";
+	uiHealthInfoCont.style.top = "50%";
+	uiHealthInfoCont.style.transform = "translateY(-50%)";
+
 	/*//Bottom right UI formatting
 	uiBottomRight.style.position = "fixed";
 	uiBottomRight.style.bottom = "0px";
