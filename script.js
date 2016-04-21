@@ -59,11 +59,12 @@ var userInterface = "<div id='gameScreen'>\
 	</div>\
 	</div>";
 var instructions = "<div id='instructions'>\
-	<p class='instructionsParagraph'>Instructions paragraph 1</p><br>\
-	<p class='instructionsParagraph'>Instructions paragraph 2</p><br>\
-	<p class='instructionsParagraph'>Instructions paragraph 3</p><br>\
-	<p class='instructionsParagraph'>Instructions paragraph 4</p><br>\
-	<div id='instructionsContinueButton'>Continue</div>\
+	<h1>Instructions</h1>\
+	<p class='instructionsParagraph'>Instructions paragraph 1</p><br><br>\
+	<p class='instructionsParagraph'>Instructions paragraph 2</p><br><br>\
+	<p class='instructionsParagraph'>Instructions paragraph 3</p><br><br>\
+	<p class='instructionsParagraph'>Press I at any time to review the instructions.</p><br><br>\
+	<div id='instructionsContinueButton' style='display: inline-block;'>Continue</div>\
 	</div>";
 
 //----------------------------------------------------------------------------------------------------
@@ -72,6 +73,7 @@ var instructions = "<div id='instructions'>\
 
 htmlElements = {}; //This object is populated later in the program, once the page is setup
 var oldPageWidth, oldPageHeight; //The program will update everything's sizing if the screen size changes
+var uiResize; //The variable holding the ui resize interval (so it can be turned off later)
 
 //----------------------------------------------------------------------------------------------------
 // Classes
@@ -216,15 +218,15 @@ function displayInstructions() {
 	htmlElements.wholeScreen.innerHTML += instructions;
 	instructionsDisplayed = true;
 	window.setTimeout(function() {
-		instructions = document.getElementById("instructions");
-		instructions.style.position = "fixed";
-		instructions.style.padding = "10px";
-		instructions.style.top = "50%";
-		instructions.style.left = "50%";
-		instructions.style.transform = "translate(-50%, -50%)";
-		instructions.style.border = "1px dotted black";
+		instructionsElement = document.getElementById("instructions");
+		instructionsElement.style.position = "fixed";
+		instructionsElement.style.padding = "10px";
+		instructionsElement.style.top = "50%";
+		instructionsElement.style.left = "50%";
+		instructionsElement.style.transform = "translate(-50%, -50%)";
+		instructionsElement.style.border = "1px dotted black";
 		document.getElementById("instructionsContinueButton").addEventListener("click", function() {
-			removeElement(instructions);
+			removeElement(instructionsElement);
 			instructionsDisplayed = false;
 		});
 	}, 0);
@@ -238,6 +240,8 @@ function pageLoad() {
 	clearPage();
 	loadUI();
 	displayInstructions();
+	createInstructionsPageEventListener();
+	uiResize = window.setInterval(testForWindowResize, 50);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -257,10 +261,19 @@ function fractionWindowWidth(denominator) {
 function fractionWindowHeight(denominator) {
 	return Number(window.getComputedStyle(gameScreen, null).getPropertyValue("height").slice(0,-2))/denominator;
 }
+function createInstructionsPageEventListener() {
+	document.addEventListener("keydown", function(event) {
+		if(event.which == 73) { //The I key
+			if(!instructionsDisplayed) {
+				displayInstructions();
+				instructionsDisplayed = true;
+			}
+		}
+	});
+}
 
 //----------------------------------------------------------------------------------------------------
 // Code Execution
 //----------------------------------------------------------------------------------------------------
 
 pageLoad();
-var uiResize = window.setInterval(testForWindowResize, 50);
