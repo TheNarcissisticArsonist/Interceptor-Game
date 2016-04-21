@@ -5,6 +5,7 @@ div {
 }
 body {
 	margin: 0px;
+	background-color: black;
 }
 svg {
 	display: inline;

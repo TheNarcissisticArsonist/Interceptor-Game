@@ -62,6 +62,7 @@ var userInterface = "<div id='gameScreen'>\
 //----------------------------------------------------------------------------------------------------
 
 htmlElements = {}; //This object is populated later in the program, once the page is setup
+var oldPageWidth, oldPageHeight; //The program will update everything's sizing if the screen size changes
 
 //----------------------------------------------------------------------------------------------------
 // Classes
@@ -179,6 +180,26 @@ function loadUI() {
 	uiBoostBarInfoCont.style.backgroundColor = "#ffdddd";
 	uiShieldsInfoCont.style.backgroundColor = "#ffdddd";
 	uiHealthInfoCont.style.backgroundColor = "#ffdddd";*/
+
+	oldPageWidth = window.innerWidth;
+	oldPageHeight = window.innerHeight;
+}
+function resetUI() {
+	htmlElements.wholeScreen.innerHTML = "";
+	htmlElements.wholeScreen.style.height = "100vh";
+	htmlElements.wholeScreen.style.width = "100vw";
+	loadUI();
+}
+function testForWindowResize() {
+	var newPageWidth = window.innerWidth;
+	var newPageHeight = window.innerHeight;
+	if(newPageWidth != oldPageWidth || newPageHeight != oldPageHeight) {
+		resetUI();
+	}
+	else {
+		oldPageHeight = newPageHeight;
+		oldPageWidth = newPageWidth;
+	}
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -213,3 +234,4 @@ function fractionWindowHeight(denominator) {
 //----------------------------------------------------------------------------------------------------
 
 pageLoad();
+window.setInterval(testForWindowResize, 100);
