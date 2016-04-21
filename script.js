@@ -63,6 +63,7 @@ var instructions = "<div id='instructions'>\
 	<p class='instructionsParagraph'>Instructions paragraph 2</p><br>\
 	<p class='instructionsParagraph'>Instructions paragraph 3</p><br>\
 	<p class='instructionsParagraph'>Instructions paragraph 4</p><br>\
+	<div id='instructionsContinueButton'>Continue</div>\
 	</div>";
 
 //----------------------------------------------------------------------------------------------------
@@ -217,9 +218,15 @@ function displayInstructions() {
 	window.setTimeout(function() {
 		instructions = document.getElementById("instructions");
 		instructions.style.position = "fixed";
+		instructions.style.padding = "10px";
 		instructions.style.top = "50%";
 		instructions.style.left = "50%";
 		instructions.style.transform = "translate(-50%, -50%)";
+		instructions.style.border = "1px dotted black";
+		document.getElementById("instructionsContinueButton").addEventListener("click", function() {
+			removeElement(instructions);
+			instructionsDisplayed = false;
+		});
 	}, 0);
 }
 
