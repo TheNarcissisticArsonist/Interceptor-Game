@@ -234,4 +234,4 @@ function fractionWindowHeight(denominator) {
 //----------------------------------------------------------------------------------------------------
 
 pageLoad();
-window.setInterval(testForWindowResize, 100);
+var uiResize = window.setInterval(testForWindowResize, 100);
