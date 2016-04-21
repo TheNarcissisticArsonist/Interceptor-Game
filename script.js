@@ -2,6 +2,7 @@
 // Constants
 //----------------------------------------------------------------------------------------------------
 
+var debugMode = true; //Does lots and lots of stuff for debugging!
 var uiWidthFractionLeft = 5; //The fraction of the total screen width for the left UI element
 var uiWidthFractionRight = 5; //Same, but for the right
 var uiHeightFraction = 5; //The height fraction for both UI elements
@@ -173,13 +174,15 @@ function loadUI() {
 		uiHealthArray[i].style.height = String(Number(uiHealthArray[i].style.width.slice(0, -2))*uiBarWidthToHeightRatio) + "px";
 	}
 
-	/*//Formatting for css debugging (comment this out when not being used)
-	uiBottomLeft.style.backgroundColor = "#ffeeee";
-	uiBottomRight.style.backgroundColor = "#ffeeee";
-	uiSpeedInfoCont.style.backgroundColor = "#ffdddd";
-	uiBoostBarInfoCont.style.backgroundColor = "#ffdddd";
-	uiShieldsInfoCont.style.backgroundColor = "#ffdddd";
-	uiHealthInfoCont.style.backgroundColor = "#ffdddd";*/
+	if(debugMode) {
+		//Formatting for css debugging
+		uiBottomLeft.style.backgroundColor = "#ffeeee";
+		uiBottomRight.style.backgroundColor = "#ffeeee";
+		uiSpeedInfoCont.style.backgroundColor = "#ffdddd";
+		uiBoostBarInfoCont.style.backgroundColor = "#ffdddd";
+		uiShieldsInfoCont.style.backgroundColor = "#ffdddd";
+		uiHealthInfoCont.style.backgroundColor = "#ffdddd";
+	}
 
 	oldPageWidth = window.innerWidth;
 	oldPageHeight = window.innerHeight;
@@ -234,4 +237,4 @@ function fractionWindowHeight(denominator) {
 //----------------------------------------------------------------------------------------------------
 
 pageLoad();
-var uiResize = window.setInterval(testForWindowResize, 100);
+var uiResize = window.setInterval(testForWindowResize, 50);
