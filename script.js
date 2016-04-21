@@ -9,6 +9,7 @@ var uiHeightFraction = 5; //The height fraction for both UI elements
 var uiBoostBarCompletelyDischargedWidth = "5px"; //How wide the boost bar is at its absolute minimum (0% charge)
 var uiBarWidthFraction = 20; //The width of the shield and health bars relative to the width of the ui container
 var uiBarWidthToHeightRatio = 2; //The ratio between the width and height of the shield and health bars in the UI
+var instructionsDisplayed = false; //True if the instructions are currently being displayed
 
 //----------------------------------------------------------------------------------------------------
 // Non-Javascript Constants
@@ -57,6 +58,12 @@ var userInterface = "<div id='gameScreen'>\
 		</div>\
 	</div>\
 	</div>";
+var instructions = "<div id='instructions'>\
+	<p class='instructionsParagraph'>Instructions paragraph 1</p><br>\
+	<p class='instructionsParagraph'>Instructions paragraph 2</p><br>\
+	<p class='instructionsParagraph'>Instructions paragraph 3</p><br>\
+	<p class='instructionsParagraph'>Instructions paragraph 4</p><br>\
+	</div>";
 
 //----------------------------------------------------------------------------------------------------
 // Global Variables
@@ -86,7 +93,7 @@ function clearPage() {
 function loadUI() {
 	//This is basically a giant-ass function that puts in all the elements and loads all the css and such
 
-	htmlElements.wholeScreen.innerHTML = userInterface;	//Load the user interface into the webpage
+	htmlElements.wholeScreen.innerHTML += userInterface;	//Load the user interface into the webpage
 	htmlElements.gameArea = document.getElementById("gameArea"); //Grab the svg game area for use later
 
 	//Store ui info panels to htmlElements for access later
@@ -188,7 +195,7 @@ function loadUI() {
 	oldPageHeight = window.innerHeight;
 }
 function resetUI() {
-	htmlElements.wholeScreen.innerHTML = "";
+	removeElement(document.getElementById("gameScreen"));
 	htmlElements.wholeScreen.style.height = "100vh";
 	htmlElements.wholeScreen.style.width = "100vw";
 	loadUI();
@@ -204,6 +211,17 @@ function testForWindowResize() {
 		oldPageWidth = newPageWidth;
 	}
 }
+function displayInstructions() {
+	htmlElements.wholeScreen.innerHTML += instructions;
+	instructionsDisplayed = true;
+	window.setTimeout(function() {
+		instructions = document.getElementById("instructions");
+		instructions.style.position = "fixed";
+		instructions.style.top = "50%";
+		instructions.style.left = "50%";
+		instructions.style.transform = "translate(-50%, -50%)";
+	}, 0);
+}
 
 //----------------------------------------------------------------------------------------------------
 // Game Functions
@@ -212,6 +230,7 @@ function testForWindowResize() {
 function pageLoad() {
 	clearPage();
 	loadUI();
+	displayInstructions();
 }
 
 //----------------------------------------------------------------------------------------------------
