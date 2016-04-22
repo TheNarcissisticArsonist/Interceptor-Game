@@ -268,6 +268,10 @@ function createInstructionsPageEventListener() {
 				displayInstructions();
 				instructionsDisplayed = true;
 			}
+			else {
+				removeElement(document.getElementById("instructions"));
+				instructionsDisplayed = false;
+			}
 		}
 	});
 }
