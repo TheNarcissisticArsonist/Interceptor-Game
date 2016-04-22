@@ -72,6 +72,7 @@ var instructions = "<div id='instructions'>\
 //----------------------------------------------------------------------------------------------------
 
 htmlElements = {}; //This object is populated later in the program, once the page is setup
+keys = {}; //This object contains the status of every key -- whether or not it's being pressed
 var oldPageWidth, oldPageHeight; //The program will update everything's sizing if the screen size changes
 var uiResize; //The variable holding the ui resize interval (so it can be turned off later)
 
@@ -241,6 +242,7 @@ function pageLoad() {
 	loadUI();
 	displayInstructions();
 	createInstructionsPageEventListener();
+	createKeyboardInputListener();
 	uiResize = window.setInterval(testForWindowResize, 50);
 }
 
@@ -273,6 +275,14 @@ function createInstructionsPageEventListener() {
 				instructionsDisplayed = false;
 			}
 		}
+	});
+}
+function createKeyboardInputListener() {
+	document.addEventListener("keydown", function(event) {
+		keys[event] = true;
+	});
+	document.addEventListener("keyup", function(event) {
+		keys[event] = false;
 	});
 }
 
